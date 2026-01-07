@@ -1,0 +1,249 @@
+
+/* =========
+   Layout base
+   ========= */
+
+.projects-container {
+  width: 100%;
+  padding: 50px 20px;
+  background-color: white;
+  color: black;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.projects-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  padding-bottom: 80px;
+  gap: 20px;
+  width: 100%;
+  max-width: 1600px;
+  margin-top: 50px;
+  padding: 0 40px;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
+.project-item {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Mantener relación de aspecto 4:3 con pseudo-elemento */
+.project-item::before {
+  content: "";
+  display: block;
+  padding-top: 75%;
+}
+
+/* Imagen del proyecto */
+.project-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: transform 0.3s ease-in-out;
+  display: block;
+
+  /* Para controlar el apilado con overlay/título */
+  position: relative;
+  z-index: 1;
+}
+
+/* Efecto zoom en hover */
+.project-item img:hover {
+  transform: scale(1.05);
+}
+
+/* =========
+   Filtros por categoría
+   ========= */
+
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* alineado a la izquierda */
+  gap: 12px;
+  width: 100%;
+  max-width: 1600px;
+  margin-top: 20px;
+  padding: 0 40px; /* coincide con el padding de .projects-list */
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.filter-button {
+  padding: 8px 16px;
+  border: 1px solid #e6e6e6;
+  background-color: #fff;
+  color: #333;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.filter-button:hover {
+  border-color: var(--rojito);
+  color: var(--rojito);
+}
+
+.filter-button.active {
+  background-color: var(--rojito);
+  color: #fff;
+  border-color: var(--rojito);
+}
+
+/* Responsive: scroll horizontal si hay muchos filtros en pantallas pequeñas */
+@media (max-width: 600px) {
+  .category-filters {
+    padding-top: 20px;
+    gap: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
+  .filter-button {
+    flex: 0 0 auto;
+  }
+}
+
+/* =========
+   Responsive general
+   ========= */
+
+@media (max-width: 768px) {
+  .projects-list {
+    grid-template-columns: 1fr;
+    padding: 0 15px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .projects-container {
+    padding: 80px;
+  }
+
+  .projects-list {
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .projects-container {
+    padding: 100px 40px;
+  }
+
+  .projects-list {
+    max-width: 1600px;
+    padding: 0 40px;
+  }
+}
+
+/* =========
+   Overlay + Título centrado (hover/focus)
+   ========= */
+
+/* Capas por encima de la imagen */
+.project-overlay,
+.project-title-center {
+  position: absolute;
+  z-index: 2;
+}
+
+/* Overlay semitransparente ocupando toda la tarjeta */
+.project-overlay {
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45); /* ajusta opacidad si lo ves muy oscuro/claro */
+  opacity: 0;
+  transition: opacity 220ms cubic-bezier(.16, 1, .3, 1);
+  pointer-events: none;
+  border-radius: 15px; /* igual que la imagen para que no “desborde” */
+}
+
+/* Contenedor del título centrado */
+.project-title-center {
+  inset: 0;                /* ocupa toda la tarjeta */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centro exacto */
+  opacity: 0;
+  transform: scale(0.98);  /* pequeño “reveal” */
+  transition:
+    opacity 220ms cubic-bezier(.16, 1, .3, 1),
+    transform 220ms cubic-bezier(.16, 1, .3, 1);
+  pointer-events: none;
+}
+
+/* Estética del título (sin sombrita, sin blur/pastilla) */
+.project-title-center h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.15rem;      /* ajusta si quieres más grande/pequeño */
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  text-wrap: balance;      /* cortes de línea agradables */
+
+  /* Sin sombra ni glow */
+  text-shadow: none;
+  background: transparent;
+  backdrop-filter: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* Estado visible en hover */
+.project-item:hover .project-overlay {
+  opacity: 1;
+}
+.project-item:hover .project-title-center {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Accesibilidad: foco de teclado (sin sombra de foco) */
+.project-item:focus {
+  outline: none;
+  box-shadow: none;
+  border-radius: 15px;
+}
+.project-item:focus .project-overlay,
+.project-item:focus .project-title-center {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Extiende el zoom también al foco (tu hover ya lo tenía) */
+.project-item:focus img {
+  transform: scale(1.05);
+}
+
+/* =========
+   Móvil (sin hover): mostrar siempre overlay + título
+   ========= */
+
+@media (hover: none) and (pointer: coarse) {
+  .project-overlay {
+    opacity: 1;
+  }
+  .project-title-center {
+    opacity: 1;
+       transform: none;
+  }
+}

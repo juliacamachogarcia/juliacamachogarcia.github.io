@@ -1,0 +1,284 @@
+
+:root {
+  --rojito: #eb5932;
+  --rosa: #ff69b4;
+  --blanco: #fff;
+
+  /* Lightbox vars (se setean por JS) */
+  --lb-top: 0px;      /* altura header */
+  --lb-bottom: 0px;   /* altura footer */
+  --lb-padding: 16px; /* respiración interior */
+  --lb-max-w: 92vw;   /* ancho máximo del contenedor */
+}
+
+/* ===== Contenedor general ===== */
+.project-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 80px;
+}
+
+/* ===== Hero ===== */
+.project-detail-container .hero-image {
+  width: 100%;
+  max-height: 52vh;
+  object-fit: cover;
+  border-radius: 0;
+  margin-bottom: 12px;
+}
+
+/* ===== Info prioritaria ===== */
+.project-info-container {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.project-meta {
+  width: 180px;
+  color: rgba(128, 128, 131, 0.85);
+  padding-right: 8px;
+  margin-top: 4px;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.project-meta span {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.project-title-container h1 {
+  font-size: 1.85rem;
+  color: rgb(50, 50, 56);
+  margin-bottom: 6px;
+}
+.project-title-container p {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #555;
+}
+
+/* ===== Flecha fija ===== */
+.back-to-projects,
+.back-to-projects * {
+  font-family: "Geist", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.back-to-projects {
+  position: fixed;
+  bottom: 18px;
+  left: 18px;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--rojito);
+  border: 2px solid var(--rojito);
+  font-weight: 800;
+  font-size: 15px;
+  text-decoration: none;
+  transition: transform .15s ease, background .2s ease, color .2s ease;
+}
+.back-to-projects:hover {
+  transform: translateY(-2px);
+  background: var(--rojito);
+  color: var(--blanco);
+}
+.back-icon svg {
+  width: 22px;
+  height: 22px;
+}
+.back-text {
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+/* ===== Galería ===== */
+.project-images {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.project-images img {
+  width: 100%;
+  height: auto;
+  border-radius: 0;
+  object-fit: cover;
+  max-height: 420px;
+}
+
+/* ===== Lightbox (overlay) — respeta header/footer y safe-area ===== */
+.lightbox-overlay {
+  position: fixed;
+  top: calc(var(--lb-top) + env(safe-area-inset-top, 0px));
+  bottom: calc(var(--lb-bottom) + env(safe-area-inset-bottom, 0px));
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding-top: 8px; /* aire extra arriba */
+}
+
+/* Backdrop clicable para cerrar */
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  cursor: default;
+}
+
+/* Contenedor de imagen */
+.lightbox-content {
+  position: relative;
+  z-index: 1;
+  max-width: var(--lb-max-w);
+  --_viewportH: min(100svh, 100dvh);
+  max-height: calc(
+    var(--_viewportH)
+    - var(--lb-top)
+    - var(--lb-bottom)
+    - (var(--lb-padding) * 2)
+    - env(safe-area-inset-top, 0px)
+    - env(safe-area-inset-bottom, 0px)
+  );
+  padding: calc(var(--lb-padding) + 12px) var(--lb-padding);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  background: transparent;
+  scroll-padding-top: 20px;
+}
+
+/* Imagen contenida */
+.lightbox-img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 0;
+  background: transparent;
+  cursor: grab; /* manita para arrastrar */
+  margin-top: 8px; /* aire extra para evitar corte */
+}
+.lightbox-img:active { cursor: grabbing; }
+
+/* Botón cerrar */
+.lightbox-close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  line-height: 1;
+  border: none;
+  color: #fff;
+  background: rgba(0,0,0,0.45);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 6px 10px;
+  font-size: 18px;
+  z-index: 2;
+}
+
+/* Flechas */
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  line-height: 1;
+  border: none;
+  color: #fff;
+  background: rgba(0,0,0,0.45);
+  border-radius: 999px;
+  cursor: pointer;
+  padding: 6px 12px;
+  z-index: 2;
+}
+.lightbox-prev { left: 16px; }
+.lightbox-next { right: 16px; }
+.lightbox-nav:hover { background: rgba(0,0,0,0.6); }
+
+/* ===== Interacción ===== */
+.clickable-image {
+  cursor: pointer; /* manita en vez de lupa */
+  user-select: none;
+  transition: transform 160ms ease, opacity 160ms ease;
+  will-change: transform;
+}
+.clickable-image:hover {
+  opacity: 0.98;
+  transform: scale(1.01);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 720px) {
+  .project-info-container {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .project-meta {
+    width: 100%;
+    font-size: 0.8rem;
+    margin-top: 2px;
+    padding-right: 0;
+  }
+  .project-title-container h1 { font-size: 1.5rem; }
+  .project-title-container p  { font-size: 0.9rem; }
+  .project-images { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .lightbox-content {
+    max-width: 96vw;
+  }
+  .lightbox-close { font-size: 16px; padding: 6px 10px; }
+  .lightbox-prev  { left: 12px; }
+  .lightbox-next  { right: 12px; }
+
+  .back-to-projects {
+    bottom: 14px;
+    left: 14px;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  .back-icon svg { width: 20px; height: 20px; }
+}
+
+@media (max-width: 360px) {
+  .project-meta { font-size: 0.78rem; }
+  .project-title-container h1 { font-size: 1.35rem; }
+  .project-title-container p  { font-size: 0.88rem; }
+}
+
+@media (max-width: 1366px) {
+  .project-info-container { grid-template-columns: 190px 1fr; }
+  .project-meta { font-size: 0.88rem; }
+  .project-title-container h1 { font-size: 1.8rem; }
+}
+
+@media (min-width: 1440px) {
+  .project-meta { font-size: 0.9rem; }
+  .project-title-container h1 { font-size: 2rem; }
+}
+
+@media (min-width: 1920px) {
+  .project-meta { font-size: 1rem; }
+  .project-title-container h1 { font-size: 2.2rem; }
+  .project-images { grid-template-columns: repeat(.project-images { grid-template-columns: repeat(3, 1fr))};
+  }

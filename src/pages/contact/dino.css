@@ -1,0 +1,117 @@
+
+:root {
+  --rojito: #eb5932;
+  --rosa: #ff69b4;
+  --blanco: #fff;
+}
+
+/* === CONTENEDOR DEL JUEGO === */
+.contact-game-container {
+  display: flex;
+  justify-content: flex-end; /* alineado a la derecha */
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* Área del juego alineada a la derecha */
+.dino-game-area.align-right {
+  position: relative;
+  overflow: hidden; /* recorta desbordes */
+  margin-left: auto; /* clave para pegarlo a la derecha */
+}
+
+/* === JUGADOR === */
+.dino-player {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  z-index: 3; /* jugador encima de cactus */
+}
+.dino-player.skate::before,
+.dino-player.skate::after {
+  display: none;
+}
+
+/* === OBSTÁCULOS === */
+.dino-cactus {
+  z-index: 2;
+  background: var(--blanco); /* relleno blanco */
+  border-radius: 8px; /* esquinas suaves */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* sombra elegante */
+  opacity: 0.98;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.dino-cactus:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* === NUBES === */
+.dino-cloud {
+  z-index: 0;
+  background: var(--blanco); /* relleno blanco */
+  border-radius: 50%; /* forma orgánica */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* sombra sutil */
+  opacity: 0.95;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.dino-cloud:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* === SUELO === */
+.dino-ground {
+  z-index: 1;
+  background: transparent;
+}
+.dino-ground-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 3px; /* más visible */
+  width: 100%;
+  background: var(--blanco);
+  opacity: 1;
+}
+
+/* === OVERLAY GAME OVER === */
+.gameover-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: 9;
+}
+.gameover-text {
+  color: #000;
+  family-font: Geist;
+  font: 700 28px/1.1 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: blink 1s ease-in-out infinite;
+  text-align: center;
+}
+.gameover-sub {
+  margin-top: 8px;
+  color: #333;
+  font: 600 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  text-align: center;
+  opacity: 0.9;
+}
+@keyframes blink {
+  0%, 40% { opacity: 1; }
+  50%, 90% { opacity: 0; }
+  100%    { opacity: 1; }
+}
+
+/* Overrides de Contacto (texto del overlay en blanco sobre rojito) */
+.contact-game-container .gameover-text {
+  color: var(--blanco);
+   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+}
+.contact-game-container .gameover-sub {
+  color: #ffffffcc;
+}

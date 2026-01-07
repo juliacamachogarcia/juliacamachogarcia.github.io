@@ -1,0 +1,461 @@
+
+/* =========================
+   Reset global de selección/caret/tap highlight
+   ========================= */
+html, body {
+  -webkit-tap-highlight-color: transparent; /* quita flash azul/gris en iOS/Android */
+  caret-color: transparent;                 /* quita caret (línea) global */
+}
+
+* {
+  user-select: none;            /* no se puede seleccionar nada por defecto */
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  caret-color: transparent;     /* quita la línea de inserción de texto */
+}
+
+/* EXCEPCIONES: permitir selección y caret en campos de entrada si los usas */
+input, textarea, [contenteditable="true"], input:focus, textarea:focus, [contenteditable="true"]:focus {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  -ms-user-select: text !important;
+  caret-color: auto !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* =========================
+   TUS ESTILOS ORIGINALES (con ajustes mínimos)
+   ========================= */
+.home {
+  width: 100%;
+  padding: 32px 0;              /* menos padding global */
+  background-color: white;
+  color: black;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;   /* evita bailes verticales */
+  align-items: stretch;          /* importante para borde a borde */
+}
+
+.intro {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  margin-top: 0;
+  flex-wrap: wrap;
+  padding: 0 24px;               /* menos padding lateral */
+  gap: 16px;                     /* controla espacios internos */
+}
+
+.intro-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: auto;
+}
+
+.intro h1 {
+  font-size: 7rem;
+  line-height: 1.1;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.intro h1 span {
+  display: block;
+  font-size: 7rem;
+}
+
+.intro p.subtitle {
+  font-size: 3rem;
+  color: #e52a53;
+  margin-top: 4px;
+  text-align: left;
+  font-family: 'Lora Italic', Italic;
+  max-width: 600px;
+}
+
+.intro img.perfil {
+  width: 370px;
+  height: auto;
+  margin-left: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.intro img.perfil:hover {
+  transform: rotate(5deg) translateX(5px) translateY(5px);
+}
+
+.gif-container {
+  text-align: center;
+  margin-top: 2px;              /* menos espacio */
+}
+
+.intro-gif {
+  width: 100%;
+  max-width: 700px;
+  margin: 2px auto;             /* menos espacio */
+}
+
+.welcome-text {
+  font-size: 2.3rem;
+  color: #e52a53;
+  font-family: 'Lora Italic', Italic;
+  margin-top: 2px;              /* menos espacio */
+  margin-bottom: 2px;           /* menos espacio */
+  text-align: center;
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* Área del puzzle */
+.puzzle-section {
+  --tile-size: clamp(150px, 22vw, 220px);
+  --gap: 0; /* unión perfecta */
+  width: 100%;
+  max-width: 900px;
+  margin: 24px auto 32px auto;   /* menos espacio vertical */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.puzzle-freeboard {
+  position: relative;
+  width: calc(var(--tile-size) * 2 + var(--gap));
+  height: calc(var(--tile-size) * 2 + var(--gap));
+  background: transparent;
+  touch-action: none; /* imprescindible para móvil */
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.puzzle-piece {
+  position: absolute;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: grab;
+  will-change: transform;
+  touch-action: none; /* evita que el navegador intercepte el gesto */
+  outline: none;
+}
+
+.puzzle-piece:active { cursor: grabbing; }
+
+.puzzle-piece img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+.puzzle-freeboard { touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+.puzzle-piece { position:absolute; touch-action:none; cursor:grab; will-change:transform; outline:none; }
+.puzzle-piece:active { cursor:grabbing; }
+.puzzle-piece img { pointer-events:none; display:block; width:100%; height:100%; object-fit:contain; }
+
+
+
+/* quitar caret/selección global (salvo inputs si los usas) */
+html, body { -webkit-tap-highlight-color: transparent; caret-color: transparent; }
+* { user-select:none; -webkit-user-select:none; caret-color:transparent; }
+input, textarea, [contenteditable="true"],
+input:focus, textarea:focus, [contenteditable="true"]:focus {
+  user-select:text !important; -webkit-user-select:text !important; caret-color:auto !important;
+
+}
+* {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  caret-color: transparent;
+}
+input, textarea, [contenteditable="true"],
+input:focus, textarea:focus, [contenteditable="true"]:focus {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  -ms-user-select: text !important;
+  caret-color: auto !important;
+}
+
+
+
+
+
+/* =========================================================
+   SEPARADOR BORDE A BORDE (sin redondeos) + ANIMACIÓN INTERNA
+   ========================================================= */
+.section-separator {
+  position: relative;         /* En el flujo del documento */
+  width: 100%;
+  margin: 12px 0;             /* menos espacio */
+  display: block;
+}
+
+.sep-line {
+  width: 100%;
+  height: 56px;               /* un poco más compacto */
+  border-radius: 0;           /* SIN redondeo */
+  background: linear-gradient(90deg, #ff9659ff 100%);
+  background-size: 100% 100%;
+  box-shadow: none;           /* sin sombra para look plano y borde a borde */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;           /* recorta el carrusel si se sale */
+}
+
+/* Botón sin padding y sin max-width para borde a borde real */
+
+/* Franja: ahora alinea el contenido a la IZQUIERDA */
+.sep-line {
+  width: 100%;
+  height: 56px;
+  border-radius: 0;
+  background-size: 100% 100%;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;      /* <- antes estaba center */
+  overflow: hidden;                 /* recorta los extremos del carrusel */
+}
+
+/* Botón borde a borde sin relleno ni borde */
+.sep-marquee {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;      /* <- pegado a la izquierda */
+  width: 100%;
+  padding: 0;  
+  margin: 1;                     /* <- quita espacio lateral */
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  outline-offset: 2px;
+}
+
+
+
+/* Track animado: sin márgenes ni rellenos extra */
+.marquee-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: 0;                           /* <- sin hueco entre bloques A y B */
+  white-space: nowrap;
+  margin: 0;                        /* <- asegura que no hay margen izq */
+  padding: 0;
+  will-change: transform;
+  animation: marquee-scroll 9s linear infinite;
+}
+
+/* Cada bloque interno: controla SOLO el espacio entre ítems */
+.marquee-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;                        /* espacio entre “¡MIRA MIS PROYECTOS!” */
+  margin: 0;                        /* <- sin margen */
+  padding: 0;                       /* <- sin padding */
+}
+
+
+.marquee-item {
+  color: #e52a53;
+  background: transparent;
+  padding: 0;   
+  margin:0;        /* compacto */
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;      /* menos espaciado */
+  font-size: 1.35rem;          /* algo más contenido */
+  text-shadow: none;          /* texto nítido */
+  font-family: Geist ;       /* usa tu fuente global */
+}
+
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+
+/* ===== Ocultar puzzle en móviles (≤ 720px) ===== */
+@media (max-width: 720px) {
+  .intro-puzzle { display: none; }
+}
+
+/* ===== Smartphones pequeños (≤ 480px) ===== */
+@media (max-width: 480px) {
+  .intro {
+    flex-direction: column;
+    padding: 0 12px;
+    gap: 16px;
+  }
+
+  .intro h1 {
+    font-size: 3.8rem;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .intro p.subtitle {
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .intro img.perfil,
+  .gif-container img {
+    max-width: 90%;
+    height: auto;
+    margin: 0 auto;
+   padding-bottom: 50px;
+  }
+
+  .welcome-text {
+    font-size: 1.2rem;
+    max-width: 95%;
+    margin: 12px auto;
+    text-align: center;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.4;
+  }
+
+  /* Orden para responsive */
+  .intro .intro-text:not(.welcome) { order: 1; }
+  .intro .section-separator { order: 2; }
+  .intro .gif-container { order: 3; }
+  .intro .welcome { order: 4; }
+
+  .sep-line { height: 40px; }
+  .marquee-item { font-size: 0.95rem; letter-spacing: 0.3px; }
+}
+
+/* ===== Smartphones normales (≤ 720px) ===== */
+@media (max-width: 720px) {
+  .intro {
+    flex-direction: column;
+    padding: 0 16px;
+    gap: 20px;
+  }
+
+  .intro h1 {
+    font-size: 4.5rem;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .intro p.subtitle {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .welcome-text {
+    font-size: 1.6rem;
+    max-width: 92%;
+    margin: 16px auto;
+    text-align: center;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.4;
+  }
+
+  .intro img.perfil,
+  .gif-container img {
+    max-width: 85%;
+    height: auto;
+    margin: 0 auto;
+    padding-bottom: 50px;
+  }
+
+  
+
+  /* Orden para responsive */
+  .intro .intro-text:not(.welcome) { order: 1; }
+  .intro .section-separator { order: 2; }
+    .intro .gif-container { order: 3; }
+  .intro .welcome { order: 4; }
+
+
+  .sep-line { height: 46px; }
+  .marquee-item { font-size: 1rem; }
+}
+
+/* ===== Tablets (≤ 1024px) ===== */
+@media (max-width: 1024px) {
+  .intro {
+    flex-direction: column;
+    padding: 0 24px;
+    gap: 24px;
+  }
+
+  .intro h1 { font-size: 5rem; text-align: center; }
+  .intro p.subtitle { font-size: 2.2rem; text-align: center; }
+  .welcome-text { font-size: 1.8rem; max-width: 90%; margin: 20px auto; }
+
+  /* Orden para responsive */
+  .intro .intro-text:not(.welcome) { order: 1; }
+  .intro .section-separator { order: 2; }
+  .intro .welcome { order: 3; }
+  .intro .gif-container { order: 4; }
+
+  .sep-line { height: 50px; }
+  .marquee-item { font-size: 1.1rem; }
+}
+
+/* ===== Portátiles (≤ 1366px) ===== */
+@media (max-width: 1366px) {
+  .intro {
+    flex-direction: row;
+    padding: 0 20px;
+    gap: 16px;
+  }
+
+  .intro h1 { font-size: 6rem; }
+  .intro p.subtitle { font-size: 2.5rem; }
+  .intro img.perfil { width: 330px; }
+  .welcome-text { font-size: 2rem; max-width: 500px; }
+
+  .sep-line { height: 52px; }
+  .marquee-item { font-size: 1.2rem; }
+}
+
+/* ===== Pantallas grandes (≥ 1440px) ===== */
+@media (min-width: 1440px) {
+  .intro h1 { font-size: 6.5rem; }
+  .intro p.subtitle { font-size: 2.8rem; }
+  .intro img.perfil { width: 350px; }
+  .welcome-text { font-size: 2.1rem; }
+
+  .sep-line { height: 54px; }
+  .marquee-item { font-size: 1.25rem; }
+}
+
+/* ===== Ultra grandes (≥ 1920px) ===== */
+@media (min-width: 1920px) {
+  .intro h1 { font-size: 7rem; }
+  .intro p.subtitle { font-size: 3rem; }
+  .intro img.perfil { width: 370px; }
+  .welcome-text { font-size: 2.3rem; }
+
+  .sep-line { height: 56px; }
+  .marquee-item { font-size: 1.35rem; }
+}
+``

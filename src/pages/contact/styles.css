@@ -1,0 +1,486 @@
+
+:root {
+  --rojito: #eb5932;
+  --rosa: #ff69b4;
+  --blanco: #fff;
+}
+
+/* Box sizing global para evitar crecimientos inesperados */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ========================= */
+/* FIX GLOBAL SCROLL */
+/* ========================= */
+
+html,
+body {
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Si usas React, #root que deje fluir el contenido */
+#root {
+  min-height: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* ========================= */
+/* CONTENEDOR GENERAL */
+/* ========================= */
+
+.contact-container {
+  width: 100%;
+  /* En desktop uso 100svh/100dvh, en móviles auto (ver media queries) */
+  height: auto;
+  background: var(--rojito);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 50px 100px;
+}
+
+/* ========================= */
+/* TÍTULO */
+/* ========================= */
+
+.page-title {
+  padding-top: 25px;
+  font-size: 2.8rem;
+  color: var(--blanco);
+  font-weight: 900;
+  text-align: left;
+  margin: 0 0 12px 0;
+}
+
+/* ========================= */
+/* CONTENIDO DESKTOP */
+/* ========================= */
+
+.contact-content {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(280px, 0.8fr);
+  align-items: start;
+  justify-items: start;
+  column-gap: 28px;
+  /* Evitamos alturas fijas; en desktop se ajusta vía media query */
+  height: auto;
+}
+
+/* ========================= */
+/* FORMULARIO */
+/* ========================= */
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 720px;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 800;
+  color: var(--blanco);
+  font-size: 1rem;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #111;
+  background: #fff;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.submit-button {
+  align-self: flex-start;
+  background: var(--rosa);
+  color: var(--blanco);
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background-color .2s ease, transform .15s ease;
+}
+
+.submit-button:hover {
+  background: #ff86c3;
+  transform: translateY(-1px);
+}
+
+/* ========================= */
+/* MENSAJES */
+/* ========================= */
+
+.form-messages {
+  margin-top: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+}
+
+.form-success,
+.form-error {
+  margin: 0 0 8px 0;
+  font-weight: 800;
+  font-size: .85rem;
+  line-height: 1.35;
+}
+
+.form-success {
+  color: var(--blanco);
+}
+
+.form-error {
+  color: var(--rosa);
+  letter-spacing: .2px;
+}
+
+/* ========================= */
+/* JUEGO */
+/* ========================= */
+
+.contact-game-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  min-width: 360px;
+}
+
+.contact-game-container .dino-wrap {
+  max-width: 360px;
+  width: 100%;
+}
+
+/* ========================= */
+/* ===== MÓVILES ≤ 480px ===== */
+/* ========================= */
+
+@media (max-width: 480px) {
+  .contact-container {
+    height: auto !important;
+    min-height: auto;
+    padding: 14px 14px;
+    overflow: visible;
+  }
+
+  .page-title {
+    font-size: 1.6rem;
+    line-height: 1.15;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .contact-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: auto !important;
+    overflow: visible;
+  }
+
+  .contact-form {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  label {
+    font-size: 0.85rem;
+  }
+
+  input,
+  textarea {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
+
+  textarea {
+    min-height: 110px;
+  }
+
+  .submit-button {
+    font-size: 0.9rem;
+    padding: 9px 12px;
+  }
+
+  /* Ocultamos el juego en móviles pequeños */
+  .contact-game-container {
+    display: none !important;
+  }
+}
+
+/* ========================= */
+/* ===== 481px–768px (móviles grandes / phablet) ===== */
+/* ========================= */
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .contact-container {
+    height: auto !important;
+    min-height: auto;
+    padding: 16px 18px;
+  }
+
+  .page-title {
+    font-size: 1.9rem;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .contact-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: auto !important;
+  }
+
+  .contact-form {
+    max-width: 520px;
+  }
+
+  .contact-game-container {
+    display: none !important;
+  }
+}
+
+/* ========================= */
+/* ===== TABLETS (769–1024px) ===== */
+/* ========================= */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .contact-container {
+    height: auto;
+    min-height: auto;
+    padding: 28px 36px;
+  }
+
+  .page-title {
+    font-size: 2.2rem;
+    margin-bottom: 16px;
+    text-align: left;
+  }
+
+  .contact-content {
+    display: grid;
+    grid-template-columns: 1fr 0.9fr;
+    column-gap: 22px;
+    height: auto;
+  }
+
+  .contact-form {
+    max-width: 600px;
+  }
+
+  .contact-game-container {
+    justify-content: flex-start;
+  }
+
+  .contact-game-container .dino-wrap {
+    max-width: 320px;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* ========================= */
+/* ===== PORTÁTILES (1025–1366px) ===== */
+/* ========================= */
+
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .contact-container {
+    /* viewport seguro para barras de navegación móviles/desktop */
+    height: 100svh;
+    min-height: 100dvh;
+    padding: 44px 72px;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 14px;
+  }
+
+  .contact-content {
+    /* ocupa el resto de la pantalla menos el padding/título */
+    height: calc(100svh - 110px);
+  }
+}
+
+/* ========================= */
+/* ===== GRANDES (≥1440px) ===== */
+/* ========================= */
+
+@media (min-width: 1440px) {
+  .contact-container {
+    height: 100svh;
+    min-height: 100dvh;
+    padding: 50px 100px;
+  }
+
+  .contact-content {
+    height: calc(100svh - 120px);
+  }
+}
+
+@media (min-width: 1920px) {
+  .page-title {
+    font-size: 3rem;
+  }
+
+  .contact-form {
+    max-width: 760px;
+  }
+
+  .contact-game-container .dino-wrap {
+    max-width: 400px;
+  }
+}
+
+/* Respiración segura arriba en todos los tamaños */
+.contact-container {
+  /* ...resto de tus propiedades... */
+  /* Añadimos aire arriba: respeta notch en iOS y asegura mínimo/máximo */
+  padding-top: calc(env(safe-area-inset-top, 0px) + clamp(24px, 6vw, 64px));
+}
+
+/* El título no pegado al borde superior */
+.page-title {
+  /* ...resto... */
+  margin-top: clamp(8px, 2.5vw, 24px); /* añade aire encima del título */
+  margin-bottom: 12px;
+}
+
+/* En móviles pequeños, más aire todavía porque la barra del navegador come espacio */
+@media (max-width: 480px) {
+  .contact-container {
+    padding-top: calc(env(safe-area-inset-top, 0px) + clamp(18px, 8vw, 36px));
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-bottom: 14px;
+  }
+
+  .page-title {
+    margin-top: clamp(10px, 5vw, 18px);
+    font-size: 1.6rem;
+    text-align: center;
+  }
+}
+
+/* En 481–768px mantenemos un margen superior cómodo */
+@media (min-width: 481px) and (max-width: 768px) {
+  .contact-container {
+    padding-top: calc(env(safe-area-inset-top, 0px) + clamp(20px, 6vw, 44px));
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-bottom: 18px;
+  }
+
+  .page-title {
+    margin-top: clamp(12px, 4vw, 22px);
+  }
+}
+
+/* Tablets: menos compresión en la parte superior */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .contact-container {
+    padding-top: calc(env(safe-area-inset-top, 0px) + clamp(24px, 4vw, 56px));
+    padding-left: 36px;
+    padding-right: 36px;
+    padding-bottom: 28px;
+  }
+
+  .page-title {
+    margin-top: clamp(12px, 3vw, 28px);
+  }
+}
+
+/* Portátiles: si usas 100svh, compensa con un padding-top suficiente */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .contact-container {
+    height: 100svh;
+    min-height: 100dvh;
+    padding-top: calc(env(safe-area-inset-top, 0px) + clamp(32px, 4vw, 72px));
+    padding-left: 72px;
+    padding-right: 72px;
+    padding-bottom: 44px;
+  }
+
+  .page-title {
+    margin-top: clamp(16px, 2.5vw, 32px);
+  }
+}
+
+/* Pantallas grandes */
+@media (min-width: 1440px) {
+  .contact-container {
+    height: 100svh;
+    min-height: 100dvh;
+    padding-top: calc(env(safe-area-inset-top, 0px) + clamp(36px, 3.5vw, 84px));
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-bottom: 50px;
+  }
+
+  .page-title {
+    margin-top: clamp(18px, 2vw, 36px);
+  }
+}
+
+/* Ajuste global para compensar header fijo */
+.contact-container {
+  padding-top: calc(60px + env(safe-area-inset-top, 0px)); /* 60px = altura aproximada del header */
+}
+
+/* Título con margen superior */
+.page-title {
+  margin-top: 20px; /* aire extra debajo del header */
+}
+
+/* En móviles pequeños */
+@media (max-width: 480px) {
+  .contact-container {
+    padding-top: calc(70px + env(safe-area-inset-top, 0px)); /* más aire en móvil */
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-bottom: 14px;
+  }
+
+  .page-title {
+    margin-top: 16px;
+    font-size: 1.6rem;
+    text-align: center;
+  }
+}
+
+/* En tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+  .contact-container {
+    padding-top: calc(80px + env(safe-area-inset-top, 0px));
+  }
+
+   .page-title {
+    margin-top: 18px;
+  }
+}

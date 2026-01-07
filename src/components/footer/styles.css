@@ -1,0 +1,90 @@
+/* Estilos del Footer */
+.footer { 
+  position: fixed;
+  left:0;
+  right:0;
+  bottom:0; /* Fija el footer en una posición */
+  background-color: white;
+  z-index: 100;
+  border-top: 1px solid #ddd;
+  padding: 8px;
+  font-size: 2rem;
+  color: black;
+  width: 100%;
+    background-color: rgb(241, 241, 245);
+ 
+  bottom: 0; /* Coloca el footer en la parte inferior */
+   /* Alinea el footer a la izquierda */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Añade una sombra para darle un efecto de elevación */
+}
+
+/* Contenedor principal */
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap; 
+}
+
+.footer-left {
+ 
+  font-size: 14px;
+  white-space: nowrap; 
+  flex: 1 1 auto; 
+}
+
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap; 
+  justify-content: flex-end; 
+  flex: 1 1 auto; 
+
+}
+
+.footer-icon {
+  width: 20px;
+  height: 20px;
+  transition: opacity 0.3s, transform 0.2s;
+}
+.footer-icon:hover {
+  opacity: 0.6;
+  transform: scale(1.1); 
+}
+
+.footer-email {
+  font-size: 14px;
+  text-decoration: none;
+  color: black;
+}
+.footer-email:hover {
+  text-decoration: underline; 
+}
+
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column; 
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-left, .footer-right {
+    width: 100%; 
+    margin: 5px 0;
+  }
+
+  .footer-right {
+    justify-content: center; /
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-email {
+    font-size: 12px; 
+  }
+}
