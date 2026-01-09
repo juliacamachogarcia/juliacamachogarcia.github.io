@@ -5,16 +5,14 @@
   --blanco: #fff;
 }
 
-/* Box sizing global para evitar crecimientos inesperados */
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* ========================= */
-/* FIX GLOBAL SCROLL */
-/* ========================= */
+
 
 html,
 body {
@@ -24,20 +22,17 @@ body {
   overflow-y: auto;
 }
 
-/* Si usas React, #root que deje fluir el contenido */
 #root {
   min-height: 100%;
   height: auto;
   overflow: visible;
 }
 
-/* ========================= */
-/* CONTENEDOR GENERAL */
-/* ========================= */
+
 
 .contact-container {
   width: 100%;
-  /* En desktop uso 100svh/100dvh, en móviles auto (ver media queries) */
+
   height: auto;
   background: var(--rojito);
   display: flex;
@@ -47,9 +42,7 @@ body {
   padding: 50px 100px;
 }
 
-/* ========================= */
-/* TÍTULO */
-/* ========================= */
+
 
 .page-title {
   padding-top: 25px;
@@ -60,9 +53,7 @@ body {
   margin: 0 0 12px 0;
 }
 
-/* ========================= */
-/* CONTENIDO DESKTOP */
-/* ========================= */
+
 
 .contact-content {
   display: grid;
@@ -74,9 +65,6 @@ body {
   height: auto;
 }
 
-/* ========================= */
-/* FORMULARIO */
-/* ========================= */
 
 .contact-form {
   display: flex;
@@ -131,9 +119,7 @@ textarea {
   transform: translateY(-1px);
 }
 
-/* ========================= */
-/* MENSAJES */
-/* ========================= */
+
 
 .form-messages {
   margin-top: 2px;
@@ -160,9 +146,7 @@ textarea {
   letter-spacing: .2px;
 }
 
-/* ========================= */
-/* JUEGO */
-/* ========================= */
+
 
 .contact-game-container {
   display: flex;
@@ -176,9 +160,7 @@ textarea {
   width: 100%;
 }
 
-/* ========================= */
-/* ===== MÓVILES ≤ 480px ===== */
-/* ========================= */
+
 
 @media (max-width: 480px) {
   .contact-container {
@@ -233,9 +215,7 @@ textarea {
   }
 }
 
-/* ========================= */
-/* ===== 481px–768px (móviles grandes / phablet) ===== */
-/* ========================= */
+
 
 @media (min-width: 481px) and (max-width: 768px) {
   .contact-container {
